@@ -4,12 +4,12 @@
 API_URL="https://api.github.com"
 
 # GitHub username and personal access token
-USERNAME=$username
-TOKEN=$token
+USERNAME="$1"
+TOKEN="$2"
 
 # User and Repository information
-REPO_OWNER=$1
-REPO_NAME=$2
+REPO_OWNER="$3"
+REPO_NAME="$4"
 
 # Function to make a GET request to the GitHub API
 function github_api_get {
@@ -37,6 +37,12 @@ function list_users_with_read_access {
 }
 
 # Main script
+
+# Validate input arguments
+if [[ $# -ne 4 ]]; then
+    echo "Usage: $0 <GitHub_Username> <GitHub_Token> <Repo_Owner> <Repo_Name>"
+    exit 1
+fi
 
 echo "Listing users with read access to ${REPO_OWNER}/${REPO_NAME}..."
 list_users_with_read_access
